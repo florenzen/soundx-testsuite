@@ -1,0 +1,31 @@
+module LetSeqExtensionTest01
+
+ imports STLCWeak LetSeqExtensionTest01 LetSeqExtension LetSeqExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetSeqExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSeqExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSeqExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetSeqExtensionTest01"
+    ; !( SXCons1(SXCons0(), "foo", STLCWeakTyNat())
+       , ["LetSeqExtension"]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetSeqExtensionTest01" ; ![]

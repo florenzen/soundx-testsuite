@@ -1,0 +1,3 @@
+module LetSeqExtensionTest01
+
+foo = \ a : Nat . a + 1 1 ;

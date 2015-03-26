@@ -1,0 +1,4 @@
+module LetSeqExtensionTest01
+ imports STLCWeak LetSeqExtensionTest01 LetSeqExtension LetSeqExtensionTest01
+exports 
+  (/)
