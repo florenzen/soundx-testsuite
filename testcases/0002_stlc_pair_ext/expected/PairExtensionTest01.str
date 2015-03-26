@@ -1,0 +1,43 @@
+module PairExtensionTest01
+
+ imports STLC PairExtensionTest01 PairExtension PairExtensionTest01 PairExtensionTest01 PairExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"PairExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"PairExtensionTest01"
+    ; !( SXCons3(
+           SXCons3(
+             SXCons3(
+               SXCons2()
+             , "point1"
+             , STLCPairExtensionTyPair(SXCons0())
+             )
+           , "point2"
+           , STLCPairExtensionTyPair(SXCons0())
+           )
+         , "n"
+         , SXCons0()
+         )
+       , ["PairExtension"]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"PairExtensionTest01" ; ![]
