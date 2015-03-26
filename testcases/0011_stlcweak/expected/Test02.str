@@ -1,0 +1,42 @@
+module Test02
+
+ imports STLCWeak Test02 Test02 Test02
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"Test02" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"Test02") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"Test02") ; fail
+
+
+strategies
+  sx-interface =
+    ?"Test02"
+    ; !( SXCons1(
+           SXCons1(
+             SXCons1(SXCons0(), "a", STLCWeakTyNat())
+           , "b"
+           , STLCWeakTyNat()
+           )
+         , "c"
+         , STLCWeakTyArrow(
+             STLCWeakTyArrow(STLCWeakTyNat(), STLCWeakTyNat())
+           , STLCWeakTyNat()
+           )
+         )
+       , []
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"Test02" ; ![]

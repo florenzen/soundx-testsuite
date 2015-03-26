@@ -1,0 +1,4 @@
+module Test02
+ imports STLCWeak Test02 Test02 Test02
+exports 
+  (/)
