@@ -1,0 +1,114 @@
+module LetSimExtension
+
+ imports STLCWeak LetSimExtension LetSeqExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension
+
+
+signature
+  constructors
+    SXConsLetSimExtension0 : STLCWeakBinding() * STLCWeakBindings() -> STLCWeakBindings()
+    SXConsLetSimExtension0 : STLCWeakGndBinding() * STLCWeakGndBindings() -> STLCWeakGndBindings()
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetSimExtension"
+    ; ![ SXInfRule(
+           [SXJudgement4(
+              SXMetaVar("C")
+            , SXMetaVar("t1")
+            , SXMetaVar("T1")
+            )|[ SXJudgement4(
+                  SXMetaVar("C")
+                , STLCWeakApp(
+                    STLCWeakLetSeqExtensionLet(
+                      SXMetaVar("bs")
+                    , STLCWeakAbs(
+                        SXMetaVar("x")
+                      , SXMetaVar("T1")
+                      , SXMetaVar("t2")
+                      )
+                    )
+                  , SXMetaVar("t1")
+                  )
+                , SXMetaVar("T2")
+                )
+              ]]
+         , "STLCWeakLetSimExtensionT-LetSim1"
+         , SXJudgement4(
+             SXMetaVar("C")
+           , STLCWeakLetSeqExtensionLet(
+               SXConsLetSimExtension0(
+                 SXConsLetSeqExtension0(
+                   SXMetaVar("x")
+                 , SXMetaVar("t1")
+                 )
+               , SXMetaVar("bs")
+               )
+             , SXMetaVar("t2")
+             )
+           , SXMetaVar("T2")
+           )
+         )
+       ]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtension") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtension")
+    ; (?SXInfRule(
+          [SXJudgement4(C, t1, T1)|[ SXJudgement4(
+                                       C
+                                     , STLCWeakApp(
+                                         STLCWeakLetSeqExtensionLet(bs, STLCWeakAbs(x, T1, t2))
+                                       , t1
+                                       )
+                                     , T2
+                                     )
+                                   ]]
+        , sx-rule-name
+        , SXJudgement4(
+            C
+          , STLCWeakLetSeqExtensionLet(
+              SXConsLetSimExtension0(SXConsLetSeqExtension0(x, t1), bs)
+            , t2
+            )
+          , T2
+          )
+        )
+       ; !SXInfRule(
+            [SXJudgement4(C, t1, T1)|[ SXJudgement4(
+                                         C
+                                       , STLCWeakApp(
+                                           STLCWeakLetSeqExtensionLet(bs, STLCWeakAbs(x, T1, t2))
+                                         , t1
+                                         )
+                                       , T2
+                                       )
+                                     ]]
+          , sx-rule-name
+          , SXJudgement4(
+              C
+            , STLCWeakApp(
+                STLCWeakLetSeqExtensionLet(bs, STLCWeakAbs(x, T1, t2))
+              , t1
+              )
+            , T2
+            )
+          )
+       <+ fail)
+
+
+strategies
+  sx-interface =
+    ?"LetSimExtension"
+    ; !(SXCons0(), ["LetSeqExtension"])
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetSimExtension" ; !["SXConsLetSimExtension0"]
