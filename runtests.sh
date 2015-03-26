@@ -5,7 +5,7 @@
 # The name of the testcase is the name of the directory
 # If no testcases are given all are run
 
-sugarj="$HOME/scratch/sugarj"
+sugarj="$HOME/scratch/sugjbin/sugarj"
 
 
 function info_message {
@@ -40,56 +40,75 @@ function log_failed {
 }
 
 function check_files {
-    if diff "$1/bin/$2.sdf" "$1/expected/$2.sdf" >& "$1/sdf.diff"; then
-        # no difference in SDF
-        if diff "$1/bin/$2.str" "$1/expected/$2.str" >& "$1/str.diff"; then
-            # no difference in STR
-            log_success
-            inc_success_testcases
-        else
-            # difference in STR
-            log_failed
-            inc_failed_testcases
-            log_message_ln "    Stratego files differ"
-        fi
-    else
-        # difference in SDF
-        log_failed
-        inc_failed_testcases
-        log_message_ln "    SDF2 files differ"
-
-        if diff "$1/bin/$2.str" "$1/expected/$2.str" >& "$1/str.diff"; then
-            # no difference in STR
+    difference="no"
+    differingFiles=""
+    for file in "$1"/expected/*; do
+        filename=`basename $file`
+        if diff "$1/bin/$filename" "$1/expected/$filename" >& "$1/$filename.diff"; then
             :
         else
-            # difference in STR
-            log_message_ln "    Stratego files differ"
+            difference="yes"
+            differingFiles="$differingFiles $filename"
         fi
-
-    fi
-}
-
-function check_error_messages {
-    grep -A 1 "^error:" "$1/sugarj.log" > "$1/error-messages.txt"
-    if diff "$1/error-messages.txt" "$1/expected/error-messages.txt" >& "$1/messages.diff"; then
-        # no difference
+    done
+    if [ $difference = "no" ]; then
         log_success
         inc_success_testcases
     else
-        # some difference
         log_failed
         inc_failed_testcases
-        log_message_ln "    error messages differ"
-        log_message_ln "    expected:"
-        while read line; do
-            log_message_ln "        $line"
-        done < "$1/expected/error-messages.txt"
-        log_message_ln "    received:"
-                while read line; do
-            log_message_ln "        $line"
-        done < "$1/error-messages.txt"
+        log_message_ln "    difference in$differingFiles"
     fi
+        
+    # if diff "$1/bin/$2.sdf" "$1/expected/$2.sdf" >& "$1/sdf.diff"; then
+    #     # no difference in SDF
+    #     if diff "$1/bin/$2.str" "$1/expected/$2.str" >& "$1/str.diff"; then
+    #         # no difference in STR
+    #         log_success
+    #         inc_success_testcases
+    #     else
+    #         # difference in STR
+    #         log_failed
+    #         inc_failed_testcases
+    #         log_message_ln "    Stratego files differ"
+    #     fi
+    # else
+    #     # difference in SDF
+    #     log_failed
+    #     inc_failed_testcases
+    #     log_message_ln "    SDF2 files differ"
+
+    #     if diff "$1/bin/$2.str" "$1/expected/$2.str" >& "$1/str.diff"; then
+    #         # no difference in STR
+    #         :
+    #     else
+    #         # difference in STR
+    #         log_message_ln "    Stratego files differ"
+    #     fi
+    # fi
 }
+
+# function check_error_messages {
+#     grep -A 1 "^error:" "$1/sugarj.log" > "$1/error-messages.txt"
+#     if diff "$1/error-messages.txt" "$1/expected/error-messages.txt" >& "$1/messages.diff"; then
+#         # no difference
+#         log_success
+#         inc_success_testcases
+#     else
+#         # some difference
+#         log_failed
+#         inc_failed_testcases
+#         log_message_ln "    error messages differ"
+#         log_message_ln "    expected:"
+#         while read line; do
+#             log_message_ln "        $line"
+#         done < "$1/expected/error-messages.txt"
+#         log_message_ln "    received:"
+#                 while read line; do
+#             log_message_ln "        $line"
+#         done < "$1/error-messages.txt"
+#     fi
+# }
 
 # 1st arg: testcase dir
 # 2nd arg: input file name
@@ -98,7 +117,7 @@ function run_sugarj {
     $sugarj -d "$1/bin" \
             --cache "$cachedir" \
             --gen-files \
-            -l sxbld \
+            -l $language \
             --sourcepath "$1/input" \
             "$2" >& "$1/sugarj.log"
 }
@@ -111,6 +130,41 @@ function inc_failed_testcases {
 function inc_success_testcases {
     testcases_total=$((testcases_total + 1))
     testcases_success=$((testcases_success + 1))
+}
+
+# Set per testcase variables to empty string
+function reset_testcase_description {
+    language=""
+    extendedExt=""
+    baseExt=""
+    input=""
+    exitcode=""
+    success=""
+}
+
+# Check testcase description
+function check_testcase_description {
+    if [ "$language" = "" ]; then
+        abort "$testcasedir: language must be set in description"
+    fi
+    if [ "$extendedExt" = "" ]; then
+        abort "$testcasedir: extendedExt must be set in description"
+    fi
+    if [ "$baseExt" = "" ]; then
+        abort "$testcasedir: baseExt must be set in description"
+    fi
+    if [ "$input" = "" ]; then
+        abort "$testcasedir: input must be set in description"
+    fi
+    if [ ! -f $testcasedir/input/$input ]; then
+        abort "$testcasedir: the input file $input does not exist"
+    fi
+    if [ "$exitcode" = "" ]; then
+        abort "$testcasedir: exitcode must be set in description"
+    fi
+    if [ "$success" != "yes" ]; then
+        abort "$testcasedir: success must be yes in description (no not yet implemented)"
+    fi
 }
 
 testcases_total=0
@@ -137,31 +191,31 @@ else
 fi
 
 for testcasedir in $testcases; do
+    reset_testcase_description
+
     if [ ! -d "$testcasedir" ]; then
         abort "$testcasedir: not found (name misspelled?)"
     fi
 
-    # Find input file
-    numinputfiles=`ls "$testcasedir/input" | wc -l`
-    if [ $numinputfiles -ne 1 ]; then
-        abort "$testcasedir: there must be exactly one input file"
+    # Load test description
+    if [ ! -f $testcasedir/description ]; then
+        abort "$testcasedir: there must be a description file"
     fi
-    inputfile=`ls "$testcasedir/input"`
-    inputfilemodule=`basename "$inputfile" .sxbld`
+    . $testcasedir/description
+    check_testcase_description
+    
+    # Find input file
+    inputfile=$input
+    inputfilemodule=`basename "$inputfile" .$extendedExt`
 
     # Find expected exit code
-    if [ ! -f $testcasedir/expected/exitcode ]; then
-        abort "$testcasedir: there must be an expected/exitcode file"
-    fi
-    expected_exitcode=`cat "$testcasedir/expected/exitcode"`
+    expected_exitcode=$exitcode
 
     # Find expected outcome
-    if [ -f "$testcasedir/expected/fail" -a ! -f "$testcasedir/expected/success" ]; then
+    if [ "$success" = "no" ]; then
         outcome="fail"
-    elif [ ! -f "$testcasedir/expected/fail" -a -f "$testcasedir/expected/success" ]; then
-        outcome="success"
     else
-        abort "$testcasedir: there must be either an expected/fail or an expected/success file"
+        outcome="success"
     fi
 
     # Start logging
@@ -190,8 +244,8 @@ for testcasedir in $testcases; do
 
     if [ "$outcome" = "success" ]; then
         check_files "$testcasedir" "$inputfilemodule"
-    elif [ "$outcome" = "fail" ]; then
-        check_error_messages "$testcasedir"
+    # elif [ "$outcome" = "fail" ]; then
+    #     check_error_messages "$testcasedir"
     fi
 done
 
@@ -205,7 +259,7 @@ if [ $testcases_failure -gt 0 ]; then
     info_message "  $outputdir"
     exit 2
 else
-    info_message "Deleting temporary directory"
-    rm -rf $outputdir
+    #info_message "Deleting temporary directory"
+    #rm -rf $outputdir
     exit 0
 fi
