@@ -1,0 +1,6 @@
+language=stlc
+extendedExt=xst
+baseExt=st
+input=PairExtension.xst
+exitcode=0
+success=yes

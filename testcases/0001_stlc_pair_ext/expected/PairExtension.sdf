@@ -1,0 +1,25 @@
+module PairExtension
+ imports STLC PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension
+exports 
+  (/)
+
+context-free syntax
+  STLCTerm "." "1"                    -> STLCTerm    {cons("STLCPairExtensionFst")}
+  STLCGndTerm "." "1"                 -> STLCGndTerm {cons("STLCPairExtensionFst")}
+  STLCTerm "." "2"                    -> STLCTerm    {cons("STLCPairExtensionSnd")}
+  STLCGndTerm "." "2"                 -> STLCGndTerm {cons("STLCPairExtensionSnd")}
+  "(" STLCTerm "," STLCTerm ")"       -> STLCTerm    {cons("STLCPairExtensionPair")}
+  "(" STLCGndTerm "," STLCGndTerm ")" -> STLCGndTerm {cons("STLCPairExtensionPair")}
+context-free syntax
+  "Pair" STLCType    -> STLCType    {cons("STLCPairExtensionTyPair")}
+  "Pair" STLCGndType -> STLCGndType {cons("STLCPairExtensionTyPair")}
+context-free syntax
+  STLCTerm "." "1"                    -> STLCTerm    {cons("STLCPairExtensionFst")}
+  STLCGndTerm "." "1"                 -> STLCGndTerm {cons("STLCPairExtensionFst")}
+  STLCTerm "." "2"                    -> STLCTerm    {cons("STLCPairExtensionSnd")}
+  STLCGndTerm "." "2"                 -> STLCGndTerm {cons("STLCPairExtensionSnd")}
+  "(" STLCTerm "," STLCTerm ")"       -> STLCTerm    {cons("STLCPairExtensionPair")}
+  "(" STLCGndTerm "," STLCGndTerm ")" -> STLCGndTerm {cons("STLCPairExtensionPair")}
+context-free syntax
+  "Pair" STLCType    -> STLCType    {cons("STLCPairExtensionTyPair")}
+  "Pair" STLCGndType -> STLCGndType {cons("STLCPairExtensionTyPair")}

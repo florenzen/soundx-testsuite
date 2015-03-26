@@ -1,0 +1,180 @@
+module PairExtension
+
+ imports STLC PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension
+
+
+signature
+  constructors
+    STLCPairExtensionFst  : STLCTerm() -> STLCTerm()
+    STLCPairExtensionFst  : STLCGndTerm() -> STLCGndTerm()
+    STLCPairExtensionSnd  : STLCTerm() -> STLCTerm()
+    STLCPairExtensionSnd  : STLCGndTerm() -> STLCGndTerm()
+    STLCPairExtensionPair : STLCTerm() * STLCTerm() -> STLCTerm()
+    STLCPairExtensionPair : STLCGndTerm() * STLCGndTerm() -> STLCGndTerm()
+
+
+signature
+  constructors
+    STLCPairExtensionTyPair : STLCType() -> STLCType()
+    STLCPairExtensionTyPair : STLCGndType() -> STLCGndType()
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"PairExtension"
+    ; ![SXInfRule(
+          [ SXJudgement5(
+              SXMetaVar("C")
+            , SXMetaVar("t")
+            , STLCPairExtensionTyPair(SXMetaVar("T"))
+            )
+          ]
+        , "STLCPairExtensionT-Fst"
+        , SXJudgement5(
+            SXMetaVar("C")
+          , STLCPairExtensionFst(SXMetaVar("t"))
+          , SXMetaVar("T")
+          )
+        )|[SXInfRule(
+             [ SXJudgement5(
+                 SXMetaVar("C")
+               , SXMetaVar("t")
+               , STLCPairExtensionTyPair(SXMetaVar("T"))
+               )
+             ]
+           , "STLCPairExtensionT-Snd"
+           , SXJudgement5(
+               SXMetaVar("C")
+             , STLCPairExtensionSnd(SXMetaVar("t"))
+             , SXMetaVar("T")
+             )
+           )|[ SXInfRule(
+                 [SXJudgement5(
+                    SXMetaVar("C")
+                  , SXMetaVar("t1")
+                  , SXMetaVar("T")
+                  )|[ SXJudgement5(
+                        SXMetaVar("C")
+                      , SXMetaVar("t2")
+                      , SXMetaVar("T")
+                      )
+                    ]]
+               , "STLCPairExtensionT-Pair"
+               , SXJudgement5(
+                   SXMetaVar("C")
+                 , STLCPairExtensionPair(
+                     SXMetaVar("t1")
+                   , SXMetaVar("t2")
+                   )
+                 , STLCPairExtensionTyPair(SXMetaVar("T"))
+                 )
+               )
+             ]]]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtension")
+    ; (?STLCPairExtensionTyPair(T)
+       ; !SXCons1(
+            SXCons1(T, SXCons1(T, T))
+          , T
+          )
+       <+ fail)
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtension")
+    ; (?SXInfRule(
+          [SXJudgement5(C, t, S)]
+        , sx-rule-name
+        , SXJudgement5(C, STLCPairExtensionFst(t), T)
+        )
+       ; !SXInfRule(
+            [SXJudgement5(C, t, S)]
+          , sx-rule-name
+          , SXJudgement5(
+              C
+            , STLCApp(
+                t
+              , STLCAbs(
+                  "a"
+                , T
+                , STLCAbs("b", T, STLCVar("a"))
+                )
+              )
+            , T
+            )
+          )
+       <+ ?SXInfRule(
+             [SXJudgement5(C, t, S)]
+           , sx-rule-name
+           , SXJudgement5(C, STLCPairExtensionSnd(t), T)
+           )
+          ; !SXInfRule(
+               [SXJudgement5(C, t, S)]
+             , sx-rule-name
+             , SXJudgement5(
+                 C
+               , STLCApp(
+                   t
+                 , STLCAbs(
+                     "a"
+                   , T
+                   , STLCAbs("b", T, STLCVar("b"))
+                   )
+                 )
+               , T
+               )
+             )
+       <+ ?SXInfRule(
+             [SXJudgement5(C, t1, T)|[SXJudgement5(C, t2, T)]]
+           , sx-rule-name
+           , SXJudgement5(C, STLCPairExtensionPair(t1, t2), S)
+           )
+          ; !SXInfRule(
+               [SXJudgement5(C, t1, T)|[SXJudgement5(C, t2, T)]]
+             , sx-rule-name
+             , SXJudgement5(
+                 C
+               , STLCApp(
+                   STLCApp(
+                     STLCAbs(
+                       "a"
+                     , T
+                     , STLCAbs(
+                         "b"
+                       , T
+                       , STLCAbs(
+                           "s"
+                         , SXCons1(T, SXCons1(T, T))
+                         , STLCApp(
+                             STLCApp(
+                               STLCVar("s")
+                             , STLCVar("a")
+                             )
+                           , STLCVar("b")
+                           )
+                         )
+                       )
+                     )
+                   , t1
+                   )
+                 , t2
+                 )
+               , S
+               )
+             )
+       <+ fail)
+
+
+strategies
+  sx-interface =
+    ?"PairExtension" ; !(SXCons2(), [])
+
+
+strategies
+  sx-extension-cons-names =
+    ?"PairExtension"
+    ; !["STLCPairExtensionPair"|["STLCPairExtensionSnd"|["STLCPairExtensionFst"|["STLCPairExtensionTyPair"]]]]
