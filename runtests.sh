@@ -6,7 +6,7 @@
 # If no testcases are given all are run
 
 sugarj="$HOME/scratch/sugjbin/sugarj"
-
+experimentsdir="$HOME/work/soundx/soundx-experiments"
 
 function info_message {
     echo -e "\033[34mINFO:\033[0m $1"
@@ -42,7 +42,7 @@ function log_failed {
 function check_files {
     difference="no"
     differingFiles=""
-    for file in "$1"/expected/*; do
+    for file in `ls $1/expected/* 2> /dev/null`; do
         filename=`basename $file`
         if diff "$1/bin/$filename" "$1/expected/$filename" >& "$1/$filename.diff"; then
             :
@@ -118,7 +118,7 @@ function run_sugarj {
             --cache "$cachedir" \
             --gen-files \
             -l $language \
-            --sourcepath "$1/input" \
+            --sourcepath "$experimentsdir/$srcdir/src" \
             "$2" >& "$1/sugarj.log"
 }
 
@@ -140,6 +140,7 @@ function reset_testcase_description {
     input=""
     exitcode=""
     success=""
+    srcdir=""
 }
 
 # Check testcase description
@@ -153,17 +154,23 @@ function check_testcase_description {
     if [ "$baseExt" = "" ]; then
         abort "$testcasedir: baseExt must be set in description"
     fi
-    if [ "$input" = "" ]; then
-        abort "$testcasedir: input must be set in description"
-    fi
-    if [ ! -f $testcasedir/input/$input ]; then
-        abort "$testcasedir: the input file $input does not exist"
-    fi
     if [ "$exitcode" = "" ]; then
         abort "$testcasedir: exitcode must be set in description"
     fi
     if [ "$success" != "yes" ]; then
         abort "$testcasedir: success must be yes in description (no not yet implemented)"
+    fi
+    if [ "$srcdir" = "" ]; then
+        abort "$testcasedir: srcdir must be set"
+    fi
+    if [ ! -d $experimentsdir/$srcdir/src ]; then
+        abort "$testcasedir: the srcdir $srcdir/src does not exist"
+    fi
+    if [ "$input" = "" ]; then
+        abort "$testcasedir: input must be set in description"
+    fi
+    if [ ! -f $experimentsdir/$srcdir/src/$input ]; then
+        abort "$testcasedir: the input file $input does not exist"
     fi
 }
 
