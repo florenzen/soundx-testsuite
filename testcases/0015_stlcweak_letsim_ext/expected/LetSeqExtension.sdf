@@ -1,0 +1,76 @@
+module LetSeqExtension
+ imports STLCWeak LetSeqExtension LetSeqExtension LetSeqExtension LetSeqExtension LetSeqExtension
+exports 
+  (/)
+lexical syntax
+  "let" -> STLCWeakKeyword    
+  "let" -> STLCWeakGndKeyword 
+  "in"  -> STLCWeakKeyword    
+  "in"  -> STLCWeakGndKeyword  context-free syntax
+                                  lexical restrictions
+                                    "let" "in" -/- [0-9a-zA-Z]
+                                    "let" "in" -/- [0-9a-zA-Z]
+context-free syntax
+  "let" STLCWeakBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
+context-free syntax
+  STLCWeakID "=" STLCWeakTerm                -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
+  STLCWeakGndID "=" STLCWeakGndTerm          -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
+  STLCWeakBinding                            -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
+  STLCWeakGndBinding                         -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
+  STLCWeakBinding ";" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
+  STLCWeakGndBinding ";" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
+context-free priorities
+  { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
+    STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >
+  "let" STLCWeakBindings "in" STLCWeakTerm -> STLCWeakTerm
+  ,
+  { STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm
+    STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm } >
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm
+lexical syntax
+  "bs" [0-9a-zA-Z]* -> STLCWeakMVBindings    
+  "bs" [0-9a-zA-Z]* -> STLCWeakGndMVBindings  context-free syntax
+                                                 lexical restrictions
+                                                   STLCWeakMVBindings
+                                                   -/- [0-9a-zA-Z]
+                                                   STLCWeakGndMVBindings
+                                                   -/- [0-9a-zA-Z]
+variables
+  STLCWeakMVBindings -> STLCWeakBindings {prefer} lexical syntax
+                                                    "let" -> STLCWeakKeyword    
+                                                    "let" -> STLCWeakGndKeyword 
+                                                    "in"  -> STLCWeakKeyword    
+                                                    "in"  -> STLCWeakGndKeyword 
+context-free syntax
+   lexical restrictions
+     "let" "in" -/- [0-9a-zA-Z]
+     "let" "in" -/- [0-9a-zA-Z]
+context-free syntax
+  "let" STLCWeakBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
+context-free syntax
+  STLCWeakID "=" STLCWeakTerm                -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
+  STLCWeakGndID "=" STLCWeakGndTerm          -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
+  STLCWeakBinding                            -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
+  STLCWeakGndBinding                         -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
+  STLCWeakBinding ";" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
+  STLCWeakGndBinding ";" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
+context-free priorities
+  { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
+    STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >
+  "let" STLCWeakBindings "in" STLCWeakTerm -> STLCWeakTerm
+  ,
+  { STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm
+    STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm } >
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm
+lexical syntax
+  "bs" [0-9a-zA-Z]* -> STLCWeakMVBindings    
+  "bs" [0-9a-zA-Z]* -> STLCWeakGndMVBindings  context-free syntax
+                                                 lexical restrictions
+                                                   STLCWeakMVBindings
+                                                   -/- [0-9a-zA-Z]
+                                                   STLCWeakGndMVBindings
+                                                   -/- [0-9a-zA-Z]
+variables
+  STLCWeakMVBindings -> STLCWeakBindings {prefer}

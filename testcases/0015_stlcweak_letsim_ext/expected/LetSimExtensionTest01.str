@@ -1,0 +1,47 @@
+module LetSimExtensionTest01
+
+ imports STLCWeak LetSimExtensionTest01 LetSimExtension LetSimExtensionTest01 LetSimExtensionTest01 LetSimExtensionTest01 LetSimExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetSimExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetSimExtensionTest01"
+    ; !( SXCons1(
+           SXCons1(
+             SXCons1(
+               SXCons1(
+                 SXCons0()
+               , "f"
+               , STLCWeakTyArrow(STLCWeakTyNat(), STLCWeakTyNat())
+               )
+             , "a"
+             , STLCWeakTyNat()
+             )
+           , "b"
+           , STLCWeakTyNat()
+           )
+         , "c"
+         , STLCWeakTyNat()
+         )
+       , ["LetSimExtension"|["LetSeqExtension"]]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetSimExtensionTest01" ; ![]

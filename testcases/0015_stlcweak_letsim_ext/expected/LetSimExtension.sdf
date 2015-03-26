@@ -1,0 +1,11 @@
+module LetSimExtension
+ imports STLCWeak LetSimExtension LetSeqExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension
+exports 
+  (/)
+
+context-free syntax
+  STLCWeakBinding "|" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSimExtension0")}
+  STLCWeakGndBinding "|" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSimExtension0")}
+context-free syntax
+  STLCWeakBinding "|" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSimExtension0")}
+  STLCWeakGndBinding "|" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSimExtension0")}
