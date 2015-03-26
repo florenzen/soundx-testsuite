@@ -1,0 +1,7 @@
+language=stlc
+extendedExt=xst
+baseExt=st
+input=LetExtensionTest02.xst
+exitcode=0
+success=yes
+srcdir=TestSTLC

@@ -1,0 +1,72 @@
+module LetExtension
+ imports STLC LetExtension LetExtension LetExtension LetExtension LetExtension
+exports 
+  (/)
+lexical syntax
+  "let" -> STLCKeyword    
+  "let" -> STLCGndKeyword 
+  "in"  -> STLCKeyword    
+  "in"  -> STLCGndKeyword  context-free syntax
+                              lexical restrictions
+                                "let" "in" -/- [0-9a-zA-Z]
+                                "let" "in" -/- [0-9a-zA-Z]
+context-free syntax
+  "let" STLCBindings "in" STLCTerm       -> STLCTerm    {cons("STLCLetExtensionLet")}
+  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm {cons("STLCLetExtensionLet")}
+context-free syntax
+  STLCID "=" STLCTerm                -> STLCBinding     {cons("SXConsLetExtension0")}
+  STLCGndID "=" STLCGndTerm          -> STLCGndBinding  {cons("SXConsLetExtension0")}
+  STLCBinding                        -> STLCBindings    {cons("SXConsLetExtension1")}
+  STLCGndBinding                     -> STLCGndBindings {cons("SXConsLetExtension1")}
+  STLCBinding ";" STLCBindings       -> STLCBindings    {cons("SXConsLetExtension2")}
+  STLCGndBinding ";" STLCGndBindings -> STLCGndBindings {cons("SXConsLetExtension2")}
+context-free priorities
+  { STLCTerm STLCTerm -> STLCTerm
+    STLCTerm "+" STLCTerm -> STLCTerm } >
+  "let" STLCBindings "in" STLCTerm -> STLCTerm
+  ,
+  { STLCGndTerm STLCGndTerm -> STLCGndTerm
+    STLCGndTerm "+" STLCGndTerm -> STLCGndTerm } >
+  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm
+lexical syntax
+  "bs" [0-9a-zA-Z]* -> STLCMVBindings    
+  "bs" [0-9a-zA-Z]* -> STLCGndMVBindings  context-free syntax
+                                             lexical restrictions
+                                               STLCMVBindings -/- [0-9a-zA-Z]
+                                               STLCGndMVBindings -/- [0-9a-zA-Z]
+variables
+  STLCMVBindings -> STLCBindings {prefer} lexical syntax
+                                            "let" -> STLCKeyword    
+                                            "let" -> STLCGndKeyword 
+                                            "in"  -> STLCKeyword    
+                                            "in"  -> STLCGndKeyword  context-free syntax
+                                                                       
+lexical restrictions
+  "let" "in" -/- [0-9a-zA-Z]
+  "let" "in" -/- [0-9a-zA-Z]
+context-free syntax
+  "let" STLCBindings "in" STLCTerm       -> STLCTerm    {cons("STLCLetExtensionLet")}
+  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm {cons("STLCLetExtensionLet")}
+context-free syntax
+  STLCID "=" STLCTerm                -> STLCBinding     {cons("SXConsLetExtension0")}
+  STLCGndID "=" STLCGndTerm          -> STLCGndBinding  {cons("SXConsLetExtension0")}
+  STLCBinding                        -> STLCBindings    {cons("SXConsLetExtension1")}
+  STLCGndBinding                     -> STLCGndBindings {cons("SXConsLetExtension1")}
+  STLCBinding ";" STLCBindings       -> STLCBindings    {cons("SXConsLetExtension2")}
+  STLCGndBinding ";" STLCGndBindings -> STLCGndBindings {cons("SXConsLetExtension2")}
+context-free priorities
+  { STLCTerm STLCTerm -> STLCTerm
+    STLCTerm "+" STLCTerm -> STLCTerm } >
+  "let" STLCBindings "in" STLCTerm -> STLCTerm
+  ,
+  { STLCGndTerm STLCGndTerm -> STLCGndTerm
+    STLCGndTerm "+" STLCGndTerm -> STLCGndTerm } >
+  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm
+lexical syntax
+  "bs" [0-9a-zA-Z]* -> STLCMVBindings    
+  "bs" [0-9a-zA-Z]* -> STLCGndMVBindings  context-free syntax
+                                             lexical restrictions
+                                               STLCMVBindings -/- [0-9a-zA-Z]
+                                               STLCGndMVBindings -/- [0-9a-zA-Z]
+variables
+  STLCMVBindings -> STLCBindings {prefer}

@@ -1,0 +1,7 @@
+language=stlc
+extendedExt=xst
+baseExt=st
+input=Test01.xst
+exitcode=0
+success=yes
+srcdir=TestSTLC

@@ -1,0 +1,35 @@
+module LetExtensionTest01
+
+ imports STLC LetExtensionTest01 LetExtension LetExtensionTest01 LetExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetExtensionTest01"
+    ; !( SXCons3(
+           SXCons3(SXCons2(), "test01", SXCons0())
+         , "test02"
+         , SXCons0()
+         )
+       , ["LetExtension"]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetExtensionTest01" ; ![]

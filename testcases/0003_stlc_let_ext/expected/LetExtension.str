@@ -1,0 +1,190 @@
+module LetExtension
+
+ imports STLC LetExtension LetExtension LetExtension LetExtension LetExtension
+
+
+signature
+  constructors
+    
+
+
+signature
+  constructors
+    STLCLetExtensionLet : STLCBindings() * STLCTerm() -> STLCTerm()
+    STLCLetExtensionLet : STLCGndBindings() * STLCGndTerm() -> STLCGndTerm()
+
+
+signature
+  constructors
+    SXConsLetExtension0 : STLCID() * STLCTerm() -> STLCBinding()
+    SXConsLetExtension0 : STLCGndID() * STLCGndTerm() -> STLCGndBinding()
+    SXConsLetExtension1 : STLCBinding() -> STLCBindings()
+    SXConsLetExtension1 : STLCGndBinding() -> STLCGndBindings()
+    SXConsLetExtension2 : STLCBinding() * STLCBindings() -> STLCBindings()
+    SXConsLetExtension2 : STLCGndBinding() * STLCGndBindings() -> STLCGndBindings()
+
+
+signature
+  constructors
+    
+
+
+signature
+  constructors
+    
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetExtension"
+    ; ![SXInfRule(
+          [SXJudgement5(
+             SXMetaVar("C")
+           , SXMetaVar("t1")
+           , SXMetaVar("T1")
+           )|[ SXJudgement5(
+                 SXCons3(
+                   SXMetaVar("C")
+                 , SXMetaVar("x")
+                 , SXMetaVar("T1")
+                 )
+               , STLCLetExtensionLet(
+                   SXMetaVar("bs")
+                 , SXMetaVar("t2")
+                 )
+               , SXMetaVar("T2")
+               )
+             ]]
+        , "STLCLetExtensionT-Let1"
+        , SXJudgement5(
+            SXMetaVar("C")
+          , STLCLetExtensionLet(
+              SXConsLetExtension2(
+                SXConsLetExtension0(
+                  SXMetaVar("x")
+                , SXMetaVar("t1")
+                )
+              , SXMetaVar("bs")
+              )
+            , SXMetaVar("t2")
+            )
+          , SXMetaVar("T2")
+          )
+        )|[ SXInfRule(
+              [SXJudgement5(
+                 SXMetaVar("C")
+               , SXMetaVar("t1")
+               , SXMetaVar("T1")
+               )|[ SXJudgement5(
+                     SXCons3(
+                       SXMetaVar("C")
+                     , SXMetaVar("x")
+                     , SXMetaVar("T1")
+                     )
+                   , SXMetaVar("t2")
+                   , SXMetaVar("T2")
+                   )
+                 ]]
+            , "STLCLetExtensionT-Let2"
+            , SXJudgement5(
+                SXMetaVar("C")
+              , STLCLetExtensionLet(
+                  SXConsLetExtension1(
+                    SXConsLetExtension0(
+                      SXMetaVar("x")
+                    , SXMetaVar("t1")
+                    )
+                  )
+                , SXMetaVar("t2")
+                )
+              , SXMetaVar("T2")
+              )
+            )
+          ]]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetExtension") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetExtension")
+    ; (?SXInfRule(
+          [SXJudgement5(C, t1, T1)|[ SXJudgement5(
+                                       SXCons3(C, x, T1)
+                                     , STLCLetExtensionLet(bs, t2)
+                                     , T2
+                                     )
+                                   ]]
+        , sx-rule-name
+        , SXJudgement5(
+            C
+          , STLCLetExtensionLet(
+              SXConsLetExtension2(SXConsLetExtension0(x, t1), bs)
+            , t2
+            )
+          , T2
+          )
+        )
+       ; !SXInfRule(
+            [SXJudgement5(C, t1, T1)|[ SXJudgement5(
+                                         SXCons3(C, x, T1)
+                                       , STLCLetExtensionLet(bs, t2)
+                                       , T2
+                                       )
+                                     ]]
+          , sx-rule-name
+          , SXJudgement5(
+              C
+            , STLCApp(
+                STLCAbs(x, T1, STLCLetExtensionLet(bs, t2))
+              , t1
+              )
+            , T2
+            )
+          )
+       <+ ?SXInfRule(
+             [SXJudgement5(C, t1, T1)|[ SXJudgement5(
+                                          SXCons3(C, x, T1)
+                                        , t2
+                                        , T
+                                        )
+                                      ]]
+           , sx-rule-name
+           , SXJudgement5(
+               C
+             , STLCLetExtensionLet(
+                 SXConsLetExtension1(SXConsLetExtension0(x, t1))
+               , t2
+               )
+             , T2
+             )
+           )
+          ; !SXInfRule(
+               [SXJudgement5(C, t1, T1)|[ SXJudgement5(
+                                            SXCons3(C, x, T1)
+                                          , t2
+                                          , T
+                                          )
+                                        ]]
+             , sx-rule-name
+             , SXJudgement5(
+                 C
+               , STLCApp(STLCAbs(x, T1, t2), t1)
+               , T2
+               )
+             )
+       <+ fail)
+
+
+strategies
+  sx-interface =
+    ?"LetExtension" ; !(SXCons2(), [])
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetExtension"
+    ; !["SXConsLetExtension2"|["SXConsLetExtension1"|["SXConsLetExtension0"|["STLCLetExtensionLet"]]]]

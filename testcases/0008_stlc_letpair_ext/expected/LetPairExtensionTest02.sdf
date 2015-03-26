@@ -1,0 +1,4 @@
+module LetPairExtensionTest02
+ imports STLC LetPairExtensionTest02 LetPairExtension LetPairExtensionTest02 LetPairExtensionTest02
+exports 
+  (/)

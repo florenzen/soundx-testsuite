@@ -1,0 +1,39 @@
+module Test01
+
+ imports STLC Test01 Test01 Test01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"Test01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"Test01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"Test01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"Test01"
+    ; !( SXCons3(
+           SXCons3(
+             SXCons3(SXCons2(), "x", SXCons0())
+           , "boo"
+           , SXCons1(SXCons0(), SXCons0())
+           )
+         , "id"
+         , SXCons1(SXCons0(), SXCons0())
+         )
+       , []
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"Test01" ; ![]

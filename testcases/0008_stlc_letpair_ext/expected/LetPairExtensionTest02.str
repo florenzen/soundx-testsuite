@@ -1,0 +1,39 @@
+module LetPairExtensionTest02
+
+ imports STLC LetPairExtensionTest02 LetPairExtension LetPairExtensionTest02 LetPairExtensionTest02
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetPairExtensionTest02" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtensionTest02") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtensionTest02") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetPairExtensionTest02"
+    ; !( SXCons3(
+           SXCons3(
+             SXCons2()
+           , "test01"
+           , STLCPairExtensionTyPair(SXCons0())
+           )
+         , "test02"
+         , SXCons0()
+         )
+       , ["LetPairExtension"|["LetExtension"|["PairExtension"]]]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetPairExtensionTest02" ; ![]

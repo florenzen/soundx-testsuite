@@ -1,0 +1,11 @@
+module LetPairExtension
+ imports STLC LetPairExtension PairExtension LetPairExtension LetExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension
+exports 
+  (/)
+
+context-free syntax
+  "(" STLCID "," STLCID ")" "=" STLCTerm          -> STLCBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm -> STLCGndBinding {cons("SXConsLetPairExtension0")}
+context-free syntax
+  "(" STLCID "," STLCID ")" "=" STLCTerm          -> STLCBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm -> STLCGndBinding {cons("SXConsLetPairExtension0")}
