@@ -1,0 +1,4 @@
+module PairExtensionTest01
+ imports STLCWeak PairExtensionTest01 PairExtension PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01
+exports 
+  (/)

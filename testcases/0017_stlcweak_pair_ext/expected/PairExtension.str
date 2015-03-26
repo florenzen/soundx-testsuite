@@ -1,0 +1,172 @@
+module PairExtension
+
+ imports STLCWeak PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension
+
+
+signature
+  constructors
+    STLCWeakPairExtensionFst  : STLCWeakTerm() -> STLCWeakTerm()
+    STLCWeakPairExtensionFst  : STLCWeakGndTerm() -> STLCWeakGndTerm()
+    STLCWeakPairExtensionSnd  : STLCWeakTerm() -> STLCWeakTerm()
+    STLCWeakPairExtensionSnd  : STLCWeakGndTerm() -> STLCWeakGndTerm()
+    STLCWeakPairExtensionPair : STLCWeakTerm() * STLCWeakTerm() -> STLCWeakTerm()
+    STLCWeakPairExtensionPair : STLCWeakGndTerm() * STLCWeakGndTerm() -> STLCWeakGndTerm()
+
+
+signature
+  constructors
+    
+
+
+signature
+  constructors
+    STLCWeakPairExtensionTyPair : STLCWeakType() -> STLCWeakType()
+    STLCWeakPairExtensionTyPair : STLCWeakGndType() -> STLCWeakGndType()
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"PairExtension"
+    ; ![SXInfRule(
+          [ SXJudgement4(
+              SXMetaVar("C")
+            , SXMetaVar("t")
+            , STLCWeakPairExtensionTyPair(SXMetaVar("T"))
+            )
+          ]
+        , "STLCWeakPairExtensionT-Fst"
+        , SXJudgement4(
+            SXMetaVar("C")
+          , STLCWeakPairExtensionFst(SXMetaVar("t"))
+          , SXMetaVar("T")
+          )
+        )|[SXInfRule(
+             [ SXJudgement4(
+                 SXMetaVar("C")
+               , SXMetaVar("t")
+               , STLCWeakPairExtensionTyPair(SXMetaVar("T"))
+               )
+             ]
+           , "STLCWeakPairExtensionT-Snd"
+           , SXJudgement4(
+               SXMetaVar("C")
+             , STLCWeakPairExtensionSnd(SXMetaVar("t"))
+             , SXMetaVar("T")
+             )
+           )|[ SXInfRule(
+                 [SXJudgement4(
+                    SXMetaVar("C")
+                  , SXMetaVar("t1")
+                  , SXMetaVar("T")
+                  )|[ SXJudgement4(
+                        SXMetaVar("C")
+                      , SXMetaVar("t2")
+                      , SXMetaVar("T")
+                      )
+                    ]]
+               , "STLCWeakPairExtensionT-Pair"
+               , SXJudgement4(
+                   SXMetaVar("C")
+                 , STLCWeakPairExtensionPair(
+                     SXMetaVar("t1")
+                   , SXMetaVar("t2")
+                   )
+                 , STLCWeakPairExtensionTyPair(SXMetaVar("T"))
+                 )
+               )
+             ]]]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtension")
+    ; (?STLCWeakPairExtensionTyPair(T)
+       ; !STLCWeakTyArrow(
+            STLCWeakTyArrow(T, STLCWeakTyArrow(T, T))
+          , T
+          )
+       <+ fail)
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtension")
+    ; (?SXInfRule(
+          [SXJudgement4(C, t, S)]
+        , sx-rule-name
+        , SXJudgement4(C, STLCWeakPairExtensionFst(t), T)
+        )
+       ; !SXInfRule(
+            [SXJudgement4(C, t, S)]
+          , sx-rule-name
+          , SXJudgement4(
+              C
+            , STLCWeakApp(
+                t
+              , STLCWeakAbs(
+                  "a"
+                , T
+                , STLCWeakAbs(
+                    SXFreshFunEnv_1(SXCons1(C, "a", T))
+                  , T
+                  , STLCWeakVar("a")
+                  )
+                )
+              )
+            , T
+            )
+          )
+       <+ ?SXInfRule(
+             [SXJudgement4(C, t, S)]
+           , sx-rule-name
+           , SXJudgement4(C, STLCWeakPairExtensionSnd(t), T)
+           )
+          ; !SXInfRule(
+               [SXJudgement4(C, t, S)]
+             , sx-rule-name
+             , SXJudgement4(
+                 C
+               , STLCWeakApp(
+                   t
+                 , STLCWeakAbs(
+                     "a"
+                   , T
+                   , STLCWeakAbs("b", T, STLCWeakVar("b"))
+                   )
+                 )
+               , T
+               )
+             )
+       <+ ?SXInfRule(
+             [SXJudgement4(C, t1, T)|[SXJudgement4(C, t2, T)]]
+           , sx-rule-name
+           , SXJudgement4(C, STLCWeakPairExtensionPair(t1, t2), S)
+           )
+          ; !SXInfRule(
+               [SXJudgement4(C, t1, T)|[SXJudgement4(C, t2, T)]]
+             , sx-rule-name
+             , SXJudgement4(
+                 C
+               , STLCWeakAbs(
+                   SXFreshFunEnv_1(C)
+                 , STLCWeakTyArrow(T, STLCWeakTyArrow(T, T))
+                 , STLCWeakApp(
+                     STLCWeakApp(STLCWeakVar(SXFreshFunEnv_1(C)), t1)
+                   , t2
+                   )
+                 )
+               , S
+               )
+             )
+       <+ fail)
+
+
+strategies
+  sx-interface =
+    ?"PairExtension" ; !(SXCons0(), [])
+
+
+strategies
+  sx-extension-cons-names =
+    ?"PairExtension"
+    ; !["STLCWeakPairExtensionPair"|["STLCWeakPairExtensionSnd"|["STLCWeakPairExtensionFst"|["STLCWeakPairExtensionTyPair"]]]]

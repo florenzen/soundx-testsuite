@@ -1,0 +1,51 @@
+module PairExtensionTest01
+
+ imports STLCWeak PairExtensionTest01 PairExtension PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01 PairExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"PairExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"PairExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"PairExtensionTest01"
+    ; !( SXCons1(
+           SXCons1(
+             SXCons1(
+               SXCons1(
+                 SXCons1(
+                   SXCons1(SXCons0(), "gen0", STLCWeakTyNat())
+                 , "gen1"
+                 , STLCWeakTyNat()
+                 )
+               , "point"
+               , STLCWeakPairExtensionTyPair(STLCWeakTyNat())
+               )
+             , "gen2"
+             , STLCWeakTyNat()
+             )
+           , "fst"
+           , STLCWeakTyNat()
+           )
+         , "snd"
+         , STLCWeakTyNat()
+         )
+       , ["PairExtension"]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"PairExtensionTest01" ; ![]

@@ -1,0 +1,45 @@
+module PairExtension
+ imports STLCWeak PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension PairExtension
+exports 
+  (/)
+
+context-free syntax
+  STLCWeakTerm "." "1"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
+  STLCWeakGndTerm "." "1"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
+  STLCWeakTerm "." "2"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
+  STLCWeakGndTerm "." "2"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
+  "(" STLCWeakTerm "," STLCWeakTerm ")"       -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
+  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")" -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
+context-free priorities
+  STLCWeakTerm STLCWeakTerm -> STLCWeakTerm >
+  { STLCWeakTerm "." "1" -> STLCWeakTerm
+    STLCWeakTerm "." "2" -> STLCWeakTerm } >
+  STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm
+  ,
+  STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm >
+  { STLCWeakGndTerm "." "1" -> STLCWeakGndTerm
+    STLCWeakGndTerm "." "2" -> STLCWeakGndTerm } >
+  STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm
+context-free syntax
+  "Pair" STLCWeakType    -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
+  "Pair" STLCWeakGndType -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}
+context-free syntax
+  STLCWeakTerm "." "1"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
+  STLCWeakGndTerm "." "1"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
+  STLCWeakTerm "." "2"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
+  STLCWeakGndTerm "." "2"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
+  "(" STLCWeakTerm "," STLCWeakTerm ")"       -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
+  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")" -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
+context-free priorities
+  STLCWeakTerm STLCWeakTerm -> STLCWeakTerm >
+  { STLCWeakTerm "." "1" -> STLCWeakTerm
+    STLCWeakTerm "." "2" -> STLCWeakTerm } >
+  STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm
+  ,
+  STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm >
+  { STLCWeakGndTerm "." "1" -> STLCWeakGndTerm
+    STLCWeakGndTerm "." "2" -> STLCWeakGndTerm } >
+  STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm
+context-free syntax
+  "Pair" STLCWeakType    -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
+  "Pair" STLCWeakGndType -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}
