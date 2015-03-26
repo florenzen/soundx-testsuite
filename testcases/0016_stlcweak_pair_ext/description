@@ -1,0 +1,7 @@
+language=stlcweak
+extendedExt=xstw
+baseExt=stw
+input=PairExtension.xstw
+exitcode=0
+success=yes
+srcdir=TestSTLCWeak
