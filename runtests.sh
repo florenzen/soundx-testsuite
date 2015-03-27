@@ -187,7 +187,12 @@ testcases_total=0
 testcases_failure=0
 testcases_success=0
 
-testsuitedir="`pwd`/${0%/*}"
+case $0 in
+    /*) testsuitedir=`dirname $0`
+        ;;
+    *) testsuitedir="`pwd`/${0%/*}"
+        ;;
+esac
 
 maketempdir
 info_message "Output directory $outputdir"
