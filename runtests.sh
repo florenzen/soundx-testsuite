@@ -174,15 +174,24 @@ function check_testcase_description {
     fi
 }
 
+function maketempdir {
+    time=`date "+%Y-%m-%d-%H-%M-%S"`
+    if which gmktemp; then
+        outputdir="`gmktemp -d --tmpdir sx-testsuite-$time.XXXXXXX`"
+    else
+        outputdir="`mktemp -d --tmpdir sx-testsuite-$time.XXXXXXX`"
+    fi
+}
+
 testcases_total=0
 testcases_failure=0
 testcases_success=0
 
 testsuitedir="`pwd`/${0%/*}"
 
-time=`date "+%Y-%m-%d-%H-%M-%S"`
-outputdir="`mktemp -d -t sxbld-testsuite-$time`"
+maketempdir
 info_message "Output directory $outputdir"
+info_message "Testsuite dir $testsuitedir"
 
 cachedir="$outputdir/sugarjcache"
 
