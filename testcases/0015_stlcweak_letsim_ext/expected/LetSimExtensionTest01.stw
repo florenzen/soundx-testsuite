@@ -1,6 +1,6 @@
 module LetSimExtensionTest01
 
 f = \ n : Nat . n ;
-a = \ g : Nat -> Nat . \ f : Nat . g f f 1 ;
-b = \ g : Nat . \ f : Nat . f + g 2 1 ;
+a = \ f : Nat . \ g : Nat -> Nat . g f 1 f ;
+b = \ f : Nat . \ g : Nat . f + g 1 2 ;
 c = \ u : Nat . \ v : Nat . u + v u 1 ;

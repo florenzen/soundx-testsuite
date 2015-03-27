@@ -4,8 +4,34 @@ exports
   (/)
 
 context-free syntax
-  STLCWeakBinding "|" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSimExtension0")}
-  STLCWeakGndBinding "|" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSimExtension0")}
+  "let" STLCWeakSimBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSimExtensionLetSim")}
+  "let" STLCWeakGndSimBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSimExtensionLetSim")}
 context-free syntax
-  STLCWeakBinding "|" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSimExtension0")}
-  STLCWeakGndBinding "|" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSimExtension0")}
+  STLCWeakBinding "|" STLCWeakBinding           -> STLCWeakSimBindings    {cons("SXConsLetSimExtension0")}
+  STLCWeakGndBinding "|" STLCWeakGndBinding     -> STLCWeakGndSimBindings {cons("SXConsLetSimExtension0")}
+  STLCWeakBinding "|" STLCWeakSimBindings       -> STLCWeakSimBindings    {cons("SXConsLetSimExtension1")}
+  STLCWeakGndBinding "|" STLCWeakGndSimBindings -> STLCWeakGndSimBindings {cons("SXConsLetSimExtension1")}
+context-free priorities
+  { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
+    STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >
+  "let" STLCWeakSimBindings "in" STLCWeakTerm -> STLCWeakTerm
+  ,
+  { STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm
+    STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm } >
+  "let" STLCWeakGndSimBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm
+context-free syntax
+  "let" STLCWeakSimBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSimExtensionLetSim")}
+  "let" STLCWeakGndSimBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSimExtensionLetSim")}
+context-free syntax
+  STLCWeakBinding "|" STLCWeakBinding           -> STLCWeakSimBindings    {cons("SXConsLetSimExtension0")}
+  STLCWeakGndBinding "|" STLCWeakGndBinding     -> STLCWeakGndSimBindings {cons("SXConsLetSimExtension0")}
+  STLCWeakBinding "|" STLCWeakSimBindings       -> STLCWeakSimBindings    {cons("SXConsLetSimExtension1")}
+  STLCWeakGndBinding "|" STLCWeakGndSimBindings -> STLCWeakGndSimBindings {cons("SXConsLetSimExtension1")}
+context-free priorities
+  { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
+    STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >
+  "let" STLCWeakSimBindings "in" STLCWeakTerm -> STLCWeakTerm
+  ,
+  { STLCWeakGndTerm STLCWeakGndTerm -> STLCWeakGndTerm
+    STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm } >
+  "let" STLCWeakGndSimBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm

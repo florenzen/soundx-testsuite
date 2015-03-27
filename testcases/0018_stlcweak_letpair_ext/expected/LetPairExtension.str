@@ -1,0 +1,134 @@
+module LetPairExtension
+
+ imports STLCWeak LetPairExtension PairExtension LetPairExtension LetSimExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension
+
+
+signature
+  constructors
+    SXConsLetPairExtension0 : STLCWeakID() * STLCWeakID() * STLCWeakTerm() -> STLCWeakBinding()
+    SXConsLetPairExtension0 : STLCWeakGndID() * STLCWeakGndID() * STLCWeakGndTerm() -> STLCWeakGndBinding()
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetPairExtension"
+    ; ![SXInfRule(
+          [SXJudgement4(
+             SXMetaVar("C")
+           , SXMetaVar("t1")
+           , STLCWeakPairExtensionTyPair(SXMetaVar("T1"))
+           )|[ SXJudgement4(
+                 SXCons1(
+                   SXCons1(
+                     SXMetaVar("C")
+                   , SXMetaVar("x1")
+                   , SXMetaVar("T1")
+                   )
+                 , SXMetaVar("x2")
+                 , SXMetaVar("T1")
+                 )
+               , STLCWeakLetSeqExtensionLet(
+                   SXMetaVar("bs")
+                 , SXMetaVar("t2")
+                 )
+               , SXMetaVar("T2")
+               )
+             ]]
+        , "STLCWeakLetPairExtensionT-LetPair1"
+        , SXJudgement4(
+            SXMetaVar("C")
+          , STLCWeakLetSeqExtensionLet(
+              SXConsLetSeqExtension2(
+                SXConsLetPairExtension0(
+                  SXMetaVar("x1")
+                , SXMetaVar("x2")
+                , SXMetaVar("t1")
+                )
+              , SXMetaVar("bs")
+              )
+            , SXMetaVar("t2")
+            )
+          , SXMetaVar("T2")
+          )
+        )|[ SXInfRule(
+              [SXJudgement4(
+                 SXMetaVar("C")
+               , SXMetaVar("t1")
+               , STLCWeakPairExtensionTyPair(SXMetaVar("T1"))
+               )|[ SXJudgement4(
+                     SXCons1(
+                       SXCons1(
+                         SXMetaVar("C")
+                       , SXMetaVar("x1")
+                       , SXMetaVar("T1")
+                       )
+                     , SXMetaVar("x2")
+                     , SXMetaVar("T1")
+                     )
+                   , SXMetaVar("t2")
+                   , SXMetaVar("T2")
+                   )
+                 ]]
+            , "STLCWeakLetPairExtensionT-LetPair2"
+            , SXJudgement4(
+                SXMetaVar("C")
+              , STLCWeakLetSeqExtensionLet(
+                  SXConsLetSeqExtension1(
+                    SXConsLetPairExtension0(
+                      SXMetaVar("x1")
+                    , SXMetaVar("x2")
+                    , SXMetaVar("t1")
+                    )
+                  )
+                , SXMetaVar("t2")
+                )
+              , SXMetaVar("T2")
+              )
+            )
+          ]]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtension")
+    ; (?STLCWeakLetSeqExtensionLet(
+          SXConsLetSeqExtension2(SXConsLetPairExtension0(x1, x2, t1), bs)
+        , t2
+        )
+       ; !STLCWeakLetSimExtensionLetSim(
+            SXConsLetSimExtension0(
+              SXConsLetSeqExtension0(x1, STLCWeakPairExtensionFst(t1))
+            , SXConsLetSeqExtension0(x2, STLCWeakPairExtensionSnd(t1))
+            )
+          , STLCWeakLetSeqExtensionLet(bs, t2)
+          )
+       <+ ?STLCWeakLetSeqExtensionLet(
+             SXConsLetSeqExtension1(SXConsLetPairExtension0(x1, x2, t1))
+           , t2
+           )
+          ; !STLCWeakLetSimExtensionLetSim(
+               SXConsLetSimExtension0(
+                 SXConsLetSeqExtension0(x1, STLCWeakPairExtensionFst(t1))
+               , SXConsLetSeqExtension0(x2, STLCWeakPairExtensionSnd(t1))
+               )
+             , t2
+             )
+       <+ fail)
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtension") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetPairExtension"
+    ; !( SXCons0()
+       , ["LetSimExtension"|["LetSeqExtension"|["PairExtension"]]]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetPairExtension" ; !["SXConsLetPairExtension0"]
