@@ -1,0 +1,4 @@
+module Test01
+
+id = \ X . \ x : X . x ;
+one = id [ Nat ] 1 ;
