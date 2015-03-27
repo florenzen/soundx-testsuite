@@ -1,0 +1,11 @@
+module LetPairExtension
+ imports STLCWeak LetPairExtension PairExtension LetPairExtension LetSimExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension LetPairExtension
+exports 
+  (/)
+
+context-free syntax
+  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm          -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}
+context-free syntax
+  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm          -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}

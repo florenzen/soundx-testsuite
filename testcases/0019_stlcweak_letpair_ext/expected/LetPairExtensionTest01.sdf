@@ -1,0 +1,4 @@
+module LetPairExtensionTest01
+ imports STLCWeak LetPairExtensionTest01 LetPairExtension LetPairExtensionTest01 LetPairExtensionTest01 LetPairExtensionTest01
+exports 
+  (/)

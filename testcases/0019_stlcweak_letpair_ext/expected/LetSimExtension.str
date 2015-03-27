@@ -1,0 +1,427 @@
+module LetSimExtension
+
+ imports STLCWeak LetSimExtension LetSeqExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension LetSimExtension
+
+
+signature
+  constructors
+    STLCWeakLetSimExtensionLetSim : STLCWeakSimBindings() * STLCWeakTerm() -> STLCWeakTerm()
+    STLCWeakLetSimExtensionLetSim : STLCWeakGndSimBindings() * STLCWeakGndTerm() -> STLCWeakGndTerm()
+
+
+signature
+  constructors
+    SXConsLetSimExtension0 : STLCWeakBinding() * STLCWeakBinding() -> STLCWeakSimBindings()
+    SXConsLetSimExtension0 : STLCWeakGndBinding() * STLCWeakGndBinding() -> STLCWeakGndSimBindings()
+    SXConsLetSimExtension1 : STLCWeakBinding() * STLCWeakSimBindings() -> STLCWeakSimBindings()
+    SXConsLetSimExtension1 : STLCWeakGndBinding() * STLCWeakGndSimBindings() -> STLCWeakGndSimBindings()
+
+
+signature
+  constructors
+    
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetSimExtension"
+    ; ![SXInfRule(
+          [SXJudgement4(
+             SXMetaVar("C")
+           , SXMetaVar("t1")
+           , SXMetaVar("T1")
+           )|[SXJudgement4(
+                SXMetaVar("C")
+              , SXMetaVar("t2")
+              , SXMetaVar("T2")
+              )|[ SXJudgement4(
+                    SXCons1(
+                      SXCons1(
+                        SXMetaVar("C")
+                      , SXMetaVar("x1")
+                      , SXMetaVar("T1")
+                      )
+                    , SXMetaVar("x2")
+                    , SXMetaVar("T2")
+                    )
+                  , SXMetaVar("t")
+                  , SXMetaVar("T")
+                  )
+                ]]]
+        , "STLCWeakLetSimExtensionT-LetSim1"
+        , SXJudgement4(
+            SXMetaVar("C")
+          , STLCWeakLetSimExtensionLetSim(
+              SXConsLetSimExtension0(
+                SXConsLetSeqExtension0(
+                  SXMetaVar("x1")
+                , SXMetaVar("t1")
+                )
+              , SXConsLetSeqExtension0(
+                  SXMetaVar("x2")
+                , SXMetaVar("t2")
+                )
+              )
+            , SXMetaVar("t")
+            )
+          , SXMetaVar("T")
+          )
+        )|[SXInfRule(
+             [SXJudgement4(
+                SXMetaVar("C")
+              , SXMetaVar("t1")
+              , SXMetaVar("T1")
+              )|[SXJudgement4(
+                   SXMetaVar("C")
+                 , SXMetaVar("t2")
+                 , SXMetaVar("T2")
+                 )|[SXJudgement4(
+                      SXMetaVar("C")
+                    , SXMetaVar("t3")
+                    , SXMetaVar("T3")
+                    )|[ SXJudgement4(
+                          SXCons1(
+                            SXCons1(
+                              SXCons1(
+                                SXMetaVar("C")
+                              , SXMetaVar("x1")
+                              , SXMetaVar("T1")
+                              )
+                            , SXMetaVar("x2")
+                            , SXMetaVar("T2")
+                            )
+                          , SXMetaVar("x3")
+                          , SXMetaVar("T3")
+                          )
+                        , SXMetaVar("t")
+                        , SXMetaVar("T")
+                        )
+                      ]]]]
+           , "STLCWeakLetSimExtensionT-LetSim2"
+           , SXJudgement4(
+               SXMetaVar("C")
+             , STLCWeakLetSimExtensionLetSim(
+                 SXConsLetSimExtension1(
+                   SXConsLetSeqExtension0(
+                     SXMetaVar("x1")
+                   , SXMetaVar("t1")
+                   )
+                 , SXConsLetSimExtension0(
+                     SXConsLetSeqExtension0(
+                       SXMetaVar("x2")
+                     , SXMetaVar("t2")
+                     )
+                   , SXConsLetSeqExtension0(
+                       SXMetaVar("x3")
+                     , SXMetaVar("t3")
+                     )
+                   )
+                 )
+               , SXMetaVar("t")
+               )
+             , SXMetaVar("T")
+             )
+           )|[ SXInfRule(
+                 [SXJudgement4(
+                    SXMetaVar("C")
+                  , SXMetaVar("t1")
+                  , SXMetaVar("T1")
+                  )|[SXJudgement4(
+                       SXMetaVar("C")
+                     , SXMetaVar("t2")
+                     , SXMetaVar("T2")
+                     )|[SXJudgement4(
+                          SXMetaVar("C")
+                        , SXMetaVar("t3")
+                        , SXMetaVar("T3")
+                        )|[SXJudgement4(
+                             SXMetaVar("C")
+                           , SXMetaVar("t4")
+                           , SXMetaVar("T4")
+                           )|[ SXJudgement4(
+                                 SXCons1(
+                                   SXCons1(
+                                     SXCons1(
+                                       SXCons1(
+                                         SXMetaVar("C")
+                                       , SXMetaVar("x1")
+                                       , SXMetaVar("T1")
+                                       )
+                                     , SXMetaVar("x2")
+                                     , SXMetaVar("T2")
+                                     )
+                                   , SXMetaVar("x3")
+                                   , SXMetaVar("T3")
+                                   )
+                                 , SXMetaVar("x4")
+                                 , SXMetaVar("T4")
+                                 )
+                               , SXMetaVar("t")
+                               , SXMetaVar("T")
+                               )
+                             ]]]]]
+               , "STLCWeakLetSimExtensionT-LetSim3"
+               , SXJudgement4(
+                   SXMetaVar("C")
+                 , STLCWeakLetSimExtensionLetSim(
+                     SXConsLetSimExtension1(
+                       SXConsLetSeqExtension0(
+                         SXMetaVar("x1")
+                       , SXMetaVar("t1")
+                       )
+                     , SXConsLetSimExtension1(
+                         SXConsLetSeqExtension0(
+                           SXMetaVar("x2")
+                         , SXMetaVar("t2")
+                         )
+                       , SXConsLetSimExtension0(
+                           SXConsLetSeqExtension0(
+                             SXMetaVar("x3")
+                           , SXMetaVar("t3")
+                           )
+                         , SXConsLetSeqExtension0(
+                             SXMetaVar("x4")
+                           , SXMetaVar("t4")
+                           )
+                         )
+                       )
+                     )
+                   , SXMetaVar("t")
+                   )
+                 , SXMetaVar("T")
+                 )
+               )
+             ]]]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtension") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetSimExtension")
+    ; (?SXInfRule(
+          [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[ SXJudgement4(
+                                                                SXCons1(
+                                                                  SXCons1(C, x1, T1)
+                                                                , x2
+                                                                , T2
+                                                                )
+                                                              , t
+                                                              , T
+                                                              )
+                                                            ]]]
+        , sx-rule-name
+        , SXJudgement4(
+            C
+          , STLCWeakLetSimExtensionLetSim(
+              SXConsLetSimExtension0(
+                SXConsLetSeqExtension0(x1, t1)
+              , SXConsLetSeqExtension0(x2, t2)
+              )
+            , t
+            )
+          , T
+          )
+        )
+       ; !SXInfRule(
+            [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[ SXJudgement4(
+                                                                  SXCons1(
+                                                                    SXCons1(C, x1, T1)
+                                                                  , x2
+                                                                  , T2
+                                                                  )
+                                                                , t
+                                                                , T
+                                                                )
+                                                              ]]]
+          , sx-rule-name
+          , SXJudgement4(
+              C
+            , STLCWeakApp(
+                STLCWeakApp(
+                  STLCWeakAbs(
+                    x1
+                  , T1
+                  , STLCWeakAbs(x2, T2, t)
+                  )
+                , t1
+                )
+              , t2
+              )
+            , T
+            )
+          )
+       <+ ?SXInfRule(
+             [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[SXJudgement4(C, t3, T3)|[ SXJudgement4(
+                                                                                            SXCons1(
+                                                                                              SXCons1(
+                                                                                                SXCons1(C, x1, T1)
+                                                                                              , x2
+                                                                                              , T2
+                                                                                              )
+                                                                                            , x3
+                                                                                            , T3
+                                                                                            )
+                                                                                          , t
+                                                                                          , T
+                                                                                          )
+                                                                                        ]]]]
+           , sx-rule-name
+           , SXJudgement4(
+               C
+             , STLCWeakLetSimExtensionLetSim(
+                 SXConsLetSimExtension1(
+                   SXConsLetSeqExtension0(x1, t1)
+                 , SXConsLetSimExtension0(
+                     SXConsLetSeqExtension0(x2, t2)
+                   , SXConsLetSeqExtension0(x3, t3)
+                   )
+                 )
+               , t
+               )
+             , T
+             )
+           )
+          ; !SXInfRule(
+               [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[SXJudgement4(C, t3, T3)|[ SXJudgement4(
+                                                                                              SXCons1(
+                                                                                                SXCons1(
+                                                                                                  SXCons1(C, x1, T1)
+                                                                                                , x2
+                                                                                                , T2
+                                                                                                )
+                                                                                              , x3
+                                                                                              , T3
+                                                                                              )
+                                                                                            , t
+                                                                                            , T
+                                                                                            )
+                                                                                          ]]]]
+             , sx-rule-name
+             , SXJudgement4(
+                 C
+               , STLCWeakApp(
+                   STLCWeakApp(
+                     STLCWeakApp(
+                       STLCWeakAbs(
+                         x1
+                       , T1
+                       , STLCWeakAbs(
+                           x2
+                         , T2
+                         , STLCWeakAbs(x3, T3, t)
+                         )
+                       )
+                     , t1
+                     )
+                   , t2
+                   )
+                 , t3
+                 )
+               , T
+               )
+             )
+       <+ ?SXInfRule(
+             [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[SXJudgement4(C, t3, T3)|[SXJudgement4(C, t4, T4)|[ SXJudgement4(
+                                                                                                                     SXCons1(
+                                                                                                                       SXCons1(
+                                                                                                                         SXCons1(
+                                                                                                                           SXCons1(C, x1, T1)
+                                                                                                                         , x2
+                                                                                                                         , T2
+                                                                                                                         )
+                                                                                                                       , x3
+                                                                                                                       , T3
+                                                                                                                       )
+                                                                                                                     , x4
+                                                                                                                     , T4
+                                                                                                                     )
+                                                                                                                   , t
+                                                                                                                   , T
+                                                                                                                   )
+                                                                                                                 ]]]]]
+           , sx-rule-name
+           , SXJudgement4(
+               C
+             , STLCWeakLetSimExtensionLetSim(
+                 SXConsLetSimExtension1(
+                   SXConsLetSeqExtension0(x1, t1)
+                 , SXConsLetSimExtension1(
+                     SXConsLetSeqExtension0(x2, t2)
+                   , SXConsLetSimExtension0(
+                       SXConsLetSeqExtension0(x3, t3)
+                     , SXConsLetSeqExtension0(x4, t4)
+                     )
+                   )
+                 )
+               , t
+               )
+             , T
+             )
+           )
+          ; !SXInfRule(
+               [SXJudgement4(C, t1, T1)|[SXJudgement4(C, t2, T2)|[SXJudgement4(C, t3, T3)|[SXJudgement4(C, t4, T4)|[ SXJudgement4(
+                                                                                                                       SXCons1(
+                                                                                                                         SXCons1(
+                                                                                                                           SXCons1(
+                                                                                                                             SXCons1(C, x1, T1)
+                                                                                                                           , x2
+                                                                                                                           , T2
+                                                                                                                           )
+                                                                                                                         , x3
+                                                                                                                         , T3
+                                                                                                                         )
+                                                                                                                       , x4
+                                                                                                                       , T4
+                                                                                                                       )
+                                                                                                                     , t
+                                                                                                                     , T
+                                                                                                                     )
+                                                                                                                   ]]]]]
+             , sx-rule-name
+             , SXJudgement4(
+                 C
+               , STLCWeakApp(
+                   STLCWeakApp(
+                     STLCWeakApp(
+                       STLCWeakApp(
+                         STLCWeakAbs(
+                           x1
+                         , T1
+                         , STLCWeakAbs(
+                             x2
+                           , T2
+                           , STLCWeakAbs(
+                               x3
+                             , T3
+                             , STLCWeakAbs(x4, T4, t)
+                             )
+                           )
+                         )
+                       , t1
+                       )
+                     , t2
+                     )
+                   , t3
+                   )
+                 , t4
+                 )
+               , T
+               )
+             )
+       <+ fail)
+
+
+strategies
+  sx-interface =
+    ?"LetSimExtension"
+    ; !(SXCons0(), ["LetSeqExtension"])
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetSimExtension"
+    ; !["SXConsLetSimExtension1"|["SXConsLetSimExtension0"|["STLCWeakLetSimExtensionLetSim"]]]

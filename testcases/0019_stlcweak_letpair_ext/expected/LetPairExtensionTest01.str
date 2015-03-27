@@ -1,0 +1,43 @@
+module LetPairExtensionTest01
+
+ imports STLCWeak LetPairExtensionTest01 LetPairExtension LetPairExtensionTest01 LetPairExtensionTest01 LetPairExtensionTest01
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"LetPairExtensionTest01" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtensionTest01") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"LetPairExtensionTest01") ; fail
+
+
+strategies
+  sx-interface =
+    ?"LetPairExtensionTest01"
+    ; !( SXCons1(
+           SXCons1(
+             SXCons1(
+               SXCons0()
+             , "p1"
+             , STLCWeakPairExtensionTyPair(STLCWeakTyNat())
+             )
+           , "twop"
+           , STLCWeakPairExtensionTyPair(STLCWeakPairExtensionTyPair(STLCWeakTyNat()))
+           )
+         , "test"
+         , STLCWeakTyNat()
+         )
+       , ["LetPairExtension"|["LetSimExtension"|["LetSeqExtension"|["PairExtension"]]]]
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"LetPairExtensionTest01" ; ![]
