@@ -1,0 +1,7 @@
+language=bogus
+extendedExt=xbogus
+baseExt=bogus
+input=Test01.xbogus
+exitcode=0
+success=yes
+srcdir=TestBogus
