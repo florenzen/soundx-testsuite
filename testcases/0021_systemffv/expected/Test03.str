@@ -1,0 +1,31 @@
+module Test03
+
+ imports SystemFFv Test03
+
+
+strategies
+  sx-extension-inference-rules =
+    ?"Test03" ; ![]
+
+
+strategies
+  sx-universal-desugarings =
+    where(sx-desugaring-active-module ; ?"Test03") ; fail
+
+
+strategies
+  sx-guarded-desugarings =
+    where(sx-desugaring-active-module ; ?"Test03") ; fail
+
+
+strategies
+  sx-interface =
+    ?"Test03"
+    ; !( SXCons6(SXCons4(), "a", SXCons0())
+       , []
+       )
+
+
+strategies
+  sx-extension-cons-names =
+    ?"Test03" ; ![]

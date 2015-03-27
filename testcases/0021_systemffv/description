@@ -1,0 +1,7 @@
+language=systemffv
+extendedExt=xsff
+baseExt=sff
+input=Test03.xsff
+exitcode=0
+success=yes
+srcdir=TestSystemFFv
