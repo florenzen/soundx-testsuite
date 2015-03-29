@@ -4,8 +4,12 @@ exports
   (/)
 
 context-free syntax
-  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm          -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
-  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}
+  "{" STLCWeakBinding SXDESUGARINGSEP STLCWeakBinding SXWhereClauses "}" -> SXDesugaring       {cons("SXUniversalDesugaring")}
+  STLCWeakBinding "=" STLCWeakBinding                                    -> SXWhereEquation    {cons("SXWhereEquation")}
+  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm                     -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm            -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}
 context-free syntax
-  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm          -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
-  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}
+  "{" STLCWeakBinding SXDESUGARINGSEP STLCWeakBinding SXWhereClauses "}" -> SXDesugaring       {cons("SXUniversalDesugaring")}
+  STLCWeakBinding "=" STLCWeakBinding                                    -> SXWhereEquation    {cons("SXWhereEquation")}
+  "(" STLCWeakID "," STLCWeakID ")" "=" STLCWeakTerm                     -> STLCWeakBinding    {cons("SXConsLetPairExtension0")}
+  "(" STLCWeakGndID "," STLCWeakGndID ")" "=" STLCWeakGndTerm            -> STLCWeakGndBinding {cons("SXConsLetPairExtension0")}

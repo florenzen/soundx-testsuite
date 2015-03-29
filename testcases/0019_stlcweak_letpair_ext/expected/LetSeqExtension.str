@@ -10,16 +10,24 @@ signature
 
 signature
   constructors
+    SXUniversalDesugaring      : STLCWeakTerm() * SXDESUGARINGSEP() * STLCWeakTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation            : STLCWeakTerm() * STLCWeakTerm() -> SXWhereEquation()
     STLCWeakLetSeqExtensionLet : STLCWeakBindings() * STLCWeakTerm() -> STLCWeakTerm()
     STLCWeakLetSeqExtensionLet : STLCWeakGndBindings() * STLCWeakGndTerm() -> STLCWeakGndTerm()
 
 
 signature
   constructors
+    SXUniversalDesugaring  : STLCWeakBinding() * SXDESUGARINGSEP() * STLCWeakBinding() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation        : STLCWeakBinding() * STLCWeakBinding() -> SXWhereEquation()
     SXConsLetSeqExtension0 : STLCWeakID() * STLCWeakTerm() -> STLCWeakBinding()
     SXConsLetSeqExtension0 : STLCWeakGndID() * STLCWeakGndTerm() -> STLCWeakGndBinding()
+    SXUniversalDesugaring  : STLCWeakBindings() * SXDESUGARINGSEP() * STLCWeakBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation        : STLCWeakBindings() * STLCWeakBindings() -> SXWhereEquation()
     SXConsLetSeqExtension1 : STLCWeakBinding() -> STLCWeakBindings()
     SXConsLetSeqExtension1 : STLCWeakGndBinding() -> STLCWeakGndBindings()
+    SXUniversalDesugaring  : STLCWeakBindings() * SXDESUGARINGSEP() * STLCWeakBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation        : STLCWeakBindings() * STLCWeakBindings() -> SXWhereEquation()
     SXConsLetSeqExtension2 : STLCWeakBinding() * STLCWeakBindings() -> STLCWeakBindings()
     SXConsLetSeqExtension2 : STLCWeakGndBinding() * STLCWeakGndBindings() -> STLCWeakGndBindings()
 

@@ -5,14 +5,20 @@ module LetSimExtension
 
 signature
   constructors
+    SXUniversalDesugaring         : STLCWeakTerm() * SXDESUGARINGSEP() * STLCWeakTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation               : STLCWeakTerm() * STLCWeakTerm() -> SXWhereEquation()
     STLCWeakLetSimExtensionLetSim : STLCWeakSimBindings() * STLCWeakTerm() -> STLCWeakTerm()
     STLCWeakLetSimExtensionLetSim : STLCWeakGndSimBindings() * STLCWeakGndTerm() -> STLCWeakGndTerm()
 
 
 signature
   constructors
+    SXUniversalDesugaring  : STLCWeakSimBindings() * SXDESUGARINGSEP() * STLCWeakSimBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation        : STLCWeakSimBindings() * STLCWeakSimBindings() -> SXWhereEquation()
     SXConsLetSimExtension0 : STLCWeakBinding() * STLCWeakBinding() -> STLCWeakSimBindings()
     SXConsLetSimExtension0 : STLCWeakGndBinding() * STLCWeakGndBinding() -> STLCWeakGndSimBindings()
+    SXUniversalDesugaring  : STLCWeakSimBindings() * SXDESUGARINGSEP() * STLCWeakSimBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation        : STLCWeakSimBindings() * STLCWeakSimBindings() -> SXWhereEquation()
     SXConsLetSimExtension1 : STLCWeakBinding() * STLCWeakSimBindings() -> STLCWeakSimBindings()
     SXConsLetSimExtension1 : STLCWeakGndBinding() * STLCWeakGndSimBindings() -> STLCWeakGndSimBindings()
 

@@ -11,15 +11,23 @@ lexical syntax
                                     "let" "in" -/- [0-9a-zA-Z]
                                     "let" "in" -/- [0-9a-zA-Z]
 context-free syntax
-  "let" STLCWeakBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
-  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "let" STLCWeakBindings "in" STLCWeakTerm                         -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm                   -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
 context-free syntax
-  STLCWeakID "=" STLCWeakTerm                -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
-  STLCWeakGndID "=" STLCWeakGndTerm          -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
-  STLCWeakBinding                            -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
-  STLCWeakGndBinding                         -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
-  STLCWeakBinding ";" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
-  STLCWeakGndBinding ";" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
+  "{" STLCWeakBinding SXDESUGARINGSEP STLCWeakBinding SXWhereClauses "}"   -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBinding "=" STLCWeakBinding                                      -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakID "=" STLCWeakTerm                                              -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
+  STLCWeakGndID "=" STLCWeakGndTerm                                        -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
+  "{" STLCWeakBindings SXDESUGARINGSEP STLCWeakBindings SXWhereClauses "}" -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBindings "=" STLCWeakBindings                                    -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakBinding                                                          -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
+  STLCWeakGndBinding                                                       -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
+  "{" STLCWeakBindings SXDESUGARINGSEP STLCWeakBindings SXWhereClauses "}" -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBindings "=" STLCWeakBindings                                    -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakBinding ";" STLCWeakBindings                                     -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
+  STLCWeakGndBinding ";" STLCWeakGndBindings                               -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
 context-free priorities
   { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
     STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >
@@ -47,15 +55,23 @@ context-free syntax
      "let" "in" -/- [0-9a-zA-Z]
      "let" "in" -/- [0-9a-zA-Z]
 context-free syntax
-  "let" STLCWeakBindings "in" STLCWeakTerm       -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
-  "let" STLCWeakGndBindings "in" STLCWeakGndTerm -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "let" STLCWeakBindings "in" STLCWeakTerm                         -> STLCWeakTerm    {cons("STLCWeakLetSeqExtensionLet")}
+  "let" STLCWeakGndBindings "in" STLCWeakGndTerm                   -> STLCWeakGndTerm {cons("STLCWeakLetSeqExtensionLet")}
 context-free syntax
-  STLCWeakID "=" STLCWeakTerm                -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
-  STLCWeakGndID "=" STLCWeakGndTerm          -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
-  STLCWeakBinding                            -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
-  STLCWeakGndBinding                         -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
-  STLCWeakBinding ";" STLCWeakBindings       -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
-  STLCWeakGndBinding ";" STLCWeakGndBindings -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
+  "{" STLCWeakBinding SXDESUGARINGSEP STLCWeakBinding SXWhereClauses "}"   -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBinding "=" STLCWeakBinding                                      -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakID "=" STLCWeakTerm                                              -> STLCWeakBinding     {cons("SXConsLetSeqExtension0")}
+  STLCWeakGndID "=" STLCWeakGndTerm                                        -> STLCWeakGndBinding  {cons("SXConsLetSeqExtension0")}
+  "{" STLCWeakBindings SXDESUGARINGSEP STLCWeakBindings SXWhereClauses "}" -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBindings "=" STLCWeakBindings                                    -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakBinding                                                          -> STLCWeakBindings    {cons("SXConsLetSeqExtension1")}
+  STLCWeakGndBinding                                                       -> STLCWeakGndBindings {cons("SXConsLetSeqExtension1")}
+  "{" STLCWeakBindings SXDESUGARINGSEP STLCWeakBindings SXWhereClauses "}" -> SXDesugaring        {cons("SXUniversalDesugaring")}
+  STLCWeakBindings "=" STLCWeakBindings                                    -> SXWhereEquation     {cons("SXWhereEquation")}
+  STLCWeakBinding ";" STLCWeakBindings                                     -> STLCWeakBindings    {cons("SXConsLetSeqExtension2")}
+  STLCWeakGndBinding ";" STLCWeakGndBindings                               -> STLCWeakGndBindings {cons("SXConsLetSeqExtension2")}
 context-free priorities
   { STLCWeakTerm STLCWeakTerm -> STLCWeakTerm
     STLCWeakTerm "+" STLCWeakTerm -> STLCWeakTerm } >

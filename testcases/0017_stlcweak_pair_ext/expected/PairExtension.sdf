@@ -4,12 +4,18 @@ exports
   (/)
 
 context-free syntax
-  STLCWeakTerm "." "1"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
-  STLCWeakGndTerm "." "1"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
-  STLCWeakTerm "." "2"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
-  STLCWeakGndTerm "." "2"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
-  "(" STLCWeakTerm "," STLCWeakTerm ")"       -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
-  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")" -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCWeakTerm "." "1"                                             -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
+  STLCWeakGndTerm "." "1"                                          -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCWeakTerm "." "2"                                             -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
+  STLCWeakGndTerm "." "2"                                          -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "(" STLCWeakTerm "," STLCWeakTerm ")"                            -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
+  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")"                      -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
 context-free priorities
   STLCWeakTerm STLCWeakTerm -> STLCWeakTerm >
   { STLCWeakTerm "." "1" -> STLCWeakTerm
@@ -21,15 +27,23 @@ context-free priorities
     STLCWeakGndTerm "." "2" -> STLCWeakGndTerm } >
   STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm
 context-free syntax
-  "Pair" STLCWeakType    -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
-  "Pair" STLCWeakGndType -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}
+  "{" STLCWeakType SXDESUGARINGSEP STLCWeakType SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakType "=" STLCWeakType                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "Pair" STLCWeakType                                              -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
+  "Pair" STLCWeakGndType                                           -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}
 context-free syntax
-  STLCWeakTerm "." "1"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
-  STLCWeakGndTerm "." "1"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
-  STLCWeakTerm "." "2"                        -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
-  STLCWeakGndTerm "." "2"                     -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
-  "(" STLCWeakTerm "," STLCWeakTerm ")"       -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
-  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")" -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCWeakTerm "." "1"                                             -> STLCWeakTerm    {cons("STLCWeakPairExtensionFst")}
+  STLCWeakGndTerm "." "1"                                          -> STLCWeakGndTerm {cons("STLCWeakPairExtensionFst")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCWeakTerm "." "2"                                             -> STLCWeakTerm    {cons("STLCWeakPairExtensionSnd")}
+  STLCWeakGndTerm "." "2"                                          -> STLCWeakGndTerm {cons("STLCWeakPairExtensionSnd")}
+  "{" STLCWeakTerm SXDESUGARINGSEP STLCWeakTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakTerm "=" STLCWeakTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "(" STLCWeakTerm "," STLCWeakTerm ")"                            -> STLCWeakTerm    {cons("STLCWeakPairExtensionPair")}
+  "(" STLCWeakGndTerm "," STLCWeakGndTerm ")"                      -> STLCWeakGndTerm {cons("STLCWeakPairExtensionPair")}
 context-free priorities
   STLCWeakTerm STLCWeakTerm -> STLCWeakTerm >
   { STLCWeakTerm "." "1" -> STLCWeakTerm
@@ -41,5 +55,7 @@ context-free priorities
     STLCWeakGndTerm "." "2" -> STLCWeakGndTerm } >
   STLCWeakGndTerm "+" STLCWeakGndTerm -> STLCWeakGndTerm
 context-free syntax
-  "Pair" STLCWeakType    -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
-  "Pair" STLCWeakGndType -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}
+  "{" STLCWeakType SXDESUGARINGSEP STLCWeakType SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCWeakType "=" STLCWeakType                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "Pair" STLCWeakType                                              -> STLCWeakType    {cons("STLCWeakPairExtensionTyPair")}
+  "Pair" STLCWeakGndType                                           -> STLCWeakGndType {cons("STLCWeakPairExtensionTyPair")}

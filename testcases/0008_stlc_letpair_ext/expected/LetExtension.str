@@ -10,18 +10,26 @@ signature
 
 signature
   constructors
-    STLCLetExtensionLet : STLCBindings() * STLCTerm() -> STLCTerm()
-    STLCLetExtensionLet : STLCGndBindings() * STLCGndTerm() -> STLCGndTerm()
+    SXUniversalDesugaring : STLCTerm() * SXDESUGARINGSEP() * STLCTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCTerm() * STLCTerm() -> SXWhereEquation()
+    STLCLetExtensionLet   : STLCBindings() * STLCTerm() -> STLCTerm()
+    STLCLetExtensionLet   : STLCGndBindings() * STLCGndTerm() -> STLCGndTerm()
 
 
 signature
   constructors
-    SXConsLetExtension0 : STLCID() * STLCTerm() -> STLCBinding()
-    SXConsLetExtension0 : STLCGndID() * STLCGndTerm() -> STLCGndBinding()
-    SXConsLetExtension1 : STLCBinding() -> STLCBindings()
-    SXConsLetExtension1 : STLCGndBinding() -> STLCGndBindings()
-    SXConsLetExtension2 : STLCBinding() * STLCBindings() -> STLCBindings()
-    SXConsLetExtension2 : STLCGndBinding() * STLCGndBindings() -> STLCGndBindings()
+    SXUniversalDesugaring : STLCBinding() * SXDESUGARINGSEP() * STLCBinding() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCBinding() * STLCBinding() -> SXWhereEquation()
+    SXConsLetExtension0   : STLCID() * STLCTerm() -> STLCBinding()
+    SXConsLetExtension0   : STLCGndID() * STLCGndTerm() -> STLCGndBinding()
+    SXUniversalDesugaring : STLCBindings() * SXDESUGARINGSEP() * STLCBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCBindings() * STLCBindings() -> SXWhereEquation()
+    SXConsLetExtension1   : STLCBinding() -> STLCBindings()
+    SXConsLetExtension1   : STLCGndBinding() -> STLCGndBindings()
+    SXUniversalDesugaring : STLCBindings() * SXDESUGARINGSEP() * STLCBindings() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCBindings() * STLCBindings() -> SXWhereEquation()
+    SXConsLetExtension2   : STLCBinding() * STLCBindings() -> STLCBindings()
+    SXConsLetExtension2   : STLCGndBinding() * STLCGndBindings() -> STLCGndBindings()
 
 
 signature

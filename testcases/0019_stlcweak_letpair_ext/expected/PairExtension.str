@@ -5,10 +5,16 @@ module PairExtension
 
 signature
   constructors
+    SXUniversalDesugaring     : STLCWeakTerm() * SXDESUGARINGSEP() * STLCWeakTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation           : STLCWeakTerm() * STLCWeakTerm() -> SXWhereEquation()
     STLCWeakPairExtensionFst  : STLCWeakTerm() -> STLCWeakTerm()
     STLCWeakPairExtensionFst  : STLCWeakGndTerm() -> STLCWeakGndTerm()
+    SXUniversalDesugaring     : STLCWeakTerm() * SXDESUGARINGSEP() * STLCWeakTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation           : STLCWeakTerm() * STLCWeakTerm() -> SXWhereEquation()
     STLCWeakPairExtensionSnd  : STLCWeakTerm() -> STLCWeakTerm()
     STLCWeakPairExtensionSnd  : STLCWeakGndTerm() -> STLCWeakGndTerm()
+    SXUniversalDesugaring     : STLCWeakTerm() * SXDESUGARINGSEP() * STLCWeakTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation           : STLCWeakTerm() * STLCWeakTerm() -> SXWhereEquation()
     STLCWeakPairExtensionPair : STLCWeakTerm() * STLCWeakTerm() -> STLCWeakTerm()
     STLCWeakPairExtensionPair : STLCWeakGndTerm() * STLCWeakGndTerm() -> STLCWeakGndTerm()
 
@@ -20,6 +26,8 @@ signature
 
 signature
   constructors
+    SXUniversalDesugaring       : STLCWeakType() * SXDESUGARINGSEP() * STLCWeakType() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation             : STLCWeakType() * STLCWeakType() -> SXWhereEquation()
     STLCWeakPairExtensionTyPair : STLCWeakType() -> STLCWeakType()
     STLCWeakPairExtensionTyPair : STLCWeakGndType() -> STLCWeakGndType()
 

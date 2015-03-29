@@ -4,8 +4,12 @@ exports
   (/)
 
 context-free syntax
-  "(" STLCID "," STLCID ")" "=" STLCTerm          -> STLCBinding    {cons("SXConsLetPairExtension0")}
-  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm -> STLCGndBinding {cons("SXConsLetPairExtension0")}
+  "{" STLCBinding SXDESUGARINGSEP STLCBinding SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBinding "=" STLCBinding                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "(" STLCID "," STLCID ")" "=" STLCTerm                         -> STLCBinding     {cons("SXConsLetPairExtension0")}
+  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm                -> STLCGndBinding  {cons("SXConsLetPairExtension0")}
 context-free syntax
-  "(" STLCID "," STLCID ")" "=" STLCTerm          -> STLCBinding    {cons("SXConsLetPairExtension0")}
-  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm -> STLCGndBinding {cons("SXConsLetPairExtension0")}
+  "{" STLCBinding SXDESUGARINGSEP STLCBinding SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBinding "=" STLCBinding                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "(" STLCID "," STLCID ")" "=" STLCTerm                         -> STLCBinding     {cons("SXConsLetPairExtension0")}
+  "(" STLCGndID "," STLCGndID ")" "=" STLCGndTerm                -> STLCGndBinding  {cons("SXConsLetPairExtension0")}

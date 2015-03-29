@@ -11,15 +11,23 @@ lexical syntax
                                 "let" "in" -/- [0-9a-zA-Z]
                                 "let" "in" -/- [0-9a-zA-Z]
 context-free syntax
-  "let" STLCBindings "in" STLCTerm       -> STLCTerm    {cons("STLCLetExtensionLet")}
-  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm {cons("STLCLetExtensionLet")}
+  "{" STLCTerm SXDESUGARINGSEP STLCTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCTerm "=" STLCTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "let" STLCBindings "in" STLCTerm                         -> STLCTerm        {cons("STLCLetExtensionLet")}
+  "let" STLCGndBindings "in" STLCGndTerm                   -> STLCGndTerm     {cons("STLCLetExtensionLet")}
 context-free syntax
-  STLCID "=" STLCTerm                -> STLCBinding     {cons("SXConsLetExtension0")}
-  STLCGndID "=" STLCGndTerm          -> STLCGndBinding  {cons("SXConsLetExtension0")}
-  STLCBinding                        -> STLCBindings    {cons("SXConsLetExtension1")}
-  STLCGndBinding                     -> STLCGndBindings {cons("SXConsLetExtension1")}
-  STLCBinding ";" STLCBindings       -> STLCBindings    {cons("SXConsLetExtension2")}
-  STLCGndBinding ";" STLCGndBindings -> STLCGndBindings {cons("SXConsLetExtension2")}
+  "{" STLCBinding SXDESUGARINGSEP STLCBinding SXWhereClauses "}"   -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBinding "=" STLCBinding                                      -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCID "=" STLCTerm                                              -> STLCBinding     {cons("SXConsLetExtension0")}
+  STLCGndID "=" STLCGndTerm                                        -> STLCGndBinding  {cons("SXConsLetExtension0")}
+  "{" STLCBindings SXDESUGARINGSEP STLCBindings SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBindings "=" STLCBindings                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCBinding                                                      -> STLCBindings    {cons("SXConsLetExtension1")}
+  STLCGndBinding                                                   -> STLCGndBindings {cons("SXConsLetExtension1")}
+  "{" STLCBindings SXDESUGARINGSEP STLCBindings SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBindings "=" STLCBindings                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCBinding ";" STLCBindings                                     -> STLCBindings    {cons("SXConsLetExtension2")}
+  STLCGndBinding ";" STLCGndBindings                               -> STLCGndBindings {cons("SXConsLetExtension2")}
 context-free priorities
   { STLCTerm STLCTerm -> STLCTerm
     STLCTerm "+" STLCTerm -> STLCTerm } >
@@ -45,15 +53,23 @@ lexical restrictions
   "let" "in" -/- [0-9a-zA-Z]
   "let" "in" -/- [0-9a-zA-Z]
 context-free syntax
-  "let" STLCBindings "in" STLCTerm       -> STLCTerm    {cons("STLCLetExtensionLet")}
-  "let" STLCGndBindings "in" STLCGndTerm -> STLCGndTerm {cons("STLCLetExtensionLet")}
+  "{" STLCTerm SXDESUGARINGSEP STLCTerm SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCTerm "=" STLCTerm                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  "let" STLCBindings "in" STLCTerm                         -> STLCTerm        {cons("STLCLetExtensionLet")}
+  "let" STLCGndBindings "in" STLCGndTerm                   -> STLCGndTerm     {cons("STLCLetExtensionLet")}
 context-free syntax
-  STLCID "=" STLCTerm                -> STLCBinding     {cons("SXConsLetExtension0")}
-  STLCGndID "=" STLCGndTerm          -> STLCGndBinding  {cons("SXConsLetExtension0")}
-  STLCBinding                        -> STLCBindings    {cons("SXConsLetExtension1")}
-  STLCGndBinding                     -> STLCGndBindings {cons("SXConsLetExtension1")}
-  STLCBinding ";" STLCBindings       -> STLCBindings    {cons("SXConsLetExtension2")}
-  STLCGndBinding ";" STLCGndBindings -> STLCGndBindings {cons("SXConsLetExtension2")}
+  "{" STLCBinding SXDESUGARINGSEP STLCBinding SXWhereClauses "}"   -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBinding "=" STLCBinding                                      -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCID "=" STLCTerm                                              -> STLCBinding     {cons("SXConsLetExtension0")}
+  STLCGndID "=" STLCGndTerm                                        -> STLCGndBinding  {cons("SXConsLetExtension0")}
+  "{" STLCBindings SXDESUGARINGSEP STLCBindings SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBindings "=" STLCBindings                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCBinding                                                      -> STLCBindings    {cons("SXConsLetExtension1")}
+  STLCGndBinding                                                   -> STLCGndBindings {cons("SXConsLetExtension1")}
+  "{" STLCBindings SXDESUGARINGSEP STLCBindings SXWhereClauses "}" -> SXDesugaring    {cons("SXUniversalDesugaring")}
+  STLCBindings "=" STLCBindings                                    -> SXWhereEquation {cons("SXWhereEquation")}
+  STLCBinding ";" STLCBindings                                     -> STLCBindings    {cons("SXConsLetExtension2")}
+  STLCGndBinding ";" STLCGndBindings                               -> STLCGndBindings {cons("SXConsLetExtension2")}
 context-free priorities
   { STLCTerm STLCTerm -> STLCTerm
     STLCTerm "+" STLCTerm -> STLCTerm } >

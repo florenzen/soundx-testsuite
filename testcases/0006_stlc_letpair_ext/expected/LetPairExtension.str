@@ -5,6 +5,8 @@ module LetPairExtension
 
 signature
   constructors
+    SXUniversalDesugaring   : STLCBinding() * SXDESUGARINGSEP() * STLCBinding() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation         : STLCBinding() * STLCBinding() -> SXWhereEquation()
     SXConsLetPairExtension0 : STLCID() * STLCID() * STLCTerm() -> STLCBinding()
     SXConsLetPairExtension0 : STLCGndID() * STLCGndID() * STLCGndTerm() -> STLCGndBinding()
 

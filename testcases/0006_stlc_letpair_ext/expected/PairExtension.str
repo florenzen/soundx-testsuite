@@ -5,10 +5,16 @@ module PairExtension
 
 signature
   constructors
+    SXUniversalDesugaring : STLCTerm() * SXDESUGARINGSEP() * STLCTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCTerm() * STLCTerm() -> SXWhereEquation()
     STLCPairExtensionFst  : STLCTerm() -> STLCTerm()
     STLCPairExtensionFst  : STLCGndTerm() -> STLCGndTerm()
+    SXUniversalDesugaring : STLCTerm() * SXDESUGARINGSEP() * STLCTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCTerm() * STLCTerm() -> SXWhereEquation()
     STLCPairExtensionSnd  : STLCTerm() -> STLCTerm()
     STLCPairExtensionSnd  : STLCGndTerm() -> STLCGndTerm()
+    SXUniversalDesugaring : STLCTerm() * SXDESUGARINGSEP() * STLCTerm() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation       : STLCTerm() * STLCTerm() -> SXWhereEquation()
     STLCPairExtensionPair : STLCTerm() * STLCTerm() -> STLCTerm()
     STLCPairExtensionPair : STLCGndTerm() * STLCGndTerm() -> STLCGndTerm()
 
@@ -20,6 +26,8 @@ signature
 
 signature
   constructors
+    SXUniversalDesugaring   : STLCType() * SXDESUGARINGSEP() * STLCType() * SXWhereClauses() -> SXDesugaring()
+    SXWhereEquation         : STLCType() * STLCType() -> SXWhereEquation()
     STLCPairExtensionTyPair : STLCType() -> STLCType()
     STLCPairExtensionTyPair : STLCGndType() -> STLCGndType()
 
